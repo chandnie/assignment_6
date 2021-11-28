@@ -6,12 +6,14 @@ const companyList = require("../models/company");
 
 router.get("/", (req, res) => res.send("Company API"));
 
+
 router.post("/add", (req, res) => {
     const { company } = req.body;
     companyList.push(company);
 
     res.json({ data: "Company added!" });
 });
+
 
 router.put("/change/:id", (req, res) => {
     const companyID = req.params.id;
@@ -39,9 +41,11 @@ router.delete("/delete/:id", (req, res) => {
     }
 });
 
+
 router.get("/list", (req, res) => {
     res.json({ data: companyList });
 });
+
 
 router.get("/:productName", (req, res) => {
     const productName = req.params.productName;
@@ -56,5 +60,6 @@ router.get("/:productName", (req, res) => {
     }
     res.json({ data: companies });
 });
+
 
 module.exports = router;
