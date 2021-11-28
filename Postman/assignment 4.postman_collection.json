@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "a8e350a7-cd2a-4858-b780-06e2213b799c",
+		"name": "assignment 4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "conpany",
+			"item": [
+				{
+					"name": "get all company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/company/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"company",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\":{\n        \"CompanyId\": \"01\",\n        \"Name\":\"mi\",\n        \"ProductIds\":[ \"03\",\"04\",\"05\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/company/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"company",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\":[\"01\",\"03\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/company/change/01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"company",
+								"change",
+								"01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product wise company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/company/mi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"company",
+								"mi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/company/delete/02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"company",
+								"delete",
+								"02"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "product add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\":{\n         \"ProductID\": \"01\",\n        \"Title\": \"Alexa\",\n        \"Price\": \"700\",\n        \"Category\": [\n            \"gadgets\", \n            \"electronics\"\n            ],\n        \"CompanyID\": \"01\",\n        \"SellerID\": \"01\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/product/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company wise product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/product/company/01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"company",
+								"01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/product/delete/01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"delete",
+								"01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/product/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller wise product list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/product/seller/02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"seller",
+								"02"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\":[\"02\", \"04\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/product/change/02",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"product",
+								"change",
+								"02"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "seller",
+			"item": [
+				{
+					"name": "seller list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/seller/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"seller",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sellere add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"seller\":{\n        \"sellerId\":\"01\",\n        \"name\":\"mi seller\",\n        \"ProductIDs\": [\"03\", \"04\", \"05\", \"06\", \"07\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/seller/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"seller",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/seller/delete/03",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"seller",
+								"delete",
+								"03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "seller update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\":[\"01\",\"02\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/seller/change/03",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"seller",
+								"change",
+								"03"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
