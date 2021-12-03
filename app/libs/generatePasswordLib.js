@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 /* Custom Library */
@@ -10,14 +10,14 @@ let hashpassword = (myPlaintextPassword) => {
     return hash
 }
 let comparePassword = (oldPassword, hashpassword, cb) => {
-    bcrypt.compare(oldPassword, hashpassword, (err, res) => {
-        if (err) {
-            logger.error(err.message, 'Comparison Error', 5)
-            cb(err, null)
-        } else {
-            cb(null, res)
-        }
-    })
+//     bcrypt.compare(oldPassword, hashpassword, (err, res) => {
+//         if (err) {
+//             logger.error(err.message, 'Comparison Error', 5)
+//             cb(err, null)
+//         } else {
+//             cb(null, res)
+//         }
+//     })
 }
 
 let comparePasswordSync = (myPlaintextPassword, hash) => {
