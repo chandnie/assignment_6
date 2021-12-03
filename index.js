@@ -44,7 +44,7 @@ const server = http.createServer(app);
 // start listening to http server
 console.log(appConfig);
 // server.listen(appConfig.port);
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`Server 🚀 Started On PORT ${PORT}`);
 });
