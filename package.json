@@ -1,5 +1,5 @@
 {
-  "name": "qwertyvate_api",
+  "name": "assignment_6",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,5 +22,14 @@
     "nodemailer": "^6.6.1",
     "pino": "^6.11.3",
     "shortid": "^2.2.16"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandnie/assignment_6.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chandnie/assignment_6/issues"
+  },
+  "homepage": "https://github.com/chandnie/assignment_6#readme"
 }
