@@ -1,61 +1,75 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const sellerList = require("../models/seller");
+const mongoose = require("mongoose");
+mongoose
+    .connect(process.env.MONGOURL)
+    .then(() => console.log("Mongo connected!"));
 
-router.get("/", (req, res) => res.send("Seller API"));
+const SellerModel = require("../Models/Seller");
 
-router.post("/add", (req, res) => {
+router.get("/", (req, res) => res.send("Seller APIs"));
+
+//Add seller
+router.post("/Add", async (req, res) => {
     const { seller } = req.body;
-    sellerList.push(seller);
+    SellerModel.create(seller);
 
-    res.json({ data: "Seller added!" });
+    return res.json({data : "Seller added!"});
 });
 
-router.put("/change/:id", (req, res) => {
-    const sellerID = req.params.id;
-    const { product } = req.body;
-    const seller = sellerList.filter((seller) => seller.SellerID === sellerID);
+//Update seller
+router.put("/Change/:id", async (req, res) => {
+    const id = req.params.id;
+    const product = req.body.product;
 
-    if (seller.length > 0) {
-        sellerList[sellerList.indexOf(seller[0])].ProductIDs = product;
-        res.json({ data: "Seller's product changed!" });
+    const updatedSeller = await SellerModel.findOneAndUpdate(
+        {SellerID : id}
+        ,{ProductIDs : product}
+        ,{new : true}
+    );
+
+    console.log(JSON.stringify(updatedSeller));
+    return res.json({data : "Seller's product changed!"});
+});
+
+//Delete seller
+router.delete("/Delete/:id", async (req, res) => {
+    const id = req.params.id;
+    const deletedSeller = await SellerModel.findOneAndDelete({SellerID : id});
+
+    console.log(JSON.stringify(deletedSeller));
+    return res.json({data : "Seller deleted!"});
+});
+
+//Seller list based on product name
+router.get("/Product/:ProductName", async (req, res) => {
+    const ProductName = req.params.ProductName;
+    const ProductModel = require("../Models/Product");
+    const product = await ProductModel.findOne({Title : ProductName});
+
+    if(product == null || product.lenght < 0){
+        return res.json({data : "No product found :(!"});
     } else {
-        res.json({ data: "Seller not found :(!" });
+        const sellerList = await SellerModel.find({ProductIDs : product["ProductID"]});
+
+        if(sellerList.length === 0){
+            return res.json({data : "No seller found :(!"});
+        }
+
+        return res.json({data : sellerList});
     }
 });
 
-router.delete("/delete/:id", (req, res) => {
-    const sellerID = req.params.id;
-    const seller = sellerList.filter((seller) => seller.SellerID === sellerID);
+//List all seller
+router.get("/List", async (req, res) => {
+    const SellerList = await SellerModel.find();
 
-    if (seller.length > 0) {
-        const sellerIndex = sellerList.indexOf(seller[0]);
-        sellerList.splice(sellerIndex, 1);
-        res.json({ data: "Seller deleted!" });
-    } else {
-        res.json({ data: "Seller not found :(!" });
+    if(SellerList.length === 0){
+        return res.json({data : "No seller found :(!"});
     }
+    return res.json({data : SellerList});
 });
-
-router.get("/list", (req, res) => {
-    res.json({ data: sellerList });
-});
-
-router.get("/:productName", (req, res) => {
-    const productName = req.params.productName;
-    const productList = require("../models/product");
-    var sellers = [];
-    const product = productList.filter((prd) => (prd.Title === productName));
-
-    if (product.length > 0) {
-        sellers = sellerList.filter((slr) => (slr.SellerID === product[0].SellerID));
-    } else {
-        sellers = "No product found :(!"
-    }
-
-    res.json({ data: sellers });
-});
-
 module.exports = router;

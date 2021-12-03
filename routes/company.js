@@ -1,65 +1,75 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const companyList = require("../models/company");
+const mongoose = require("mongoose");
+mongoose
+    .connect(process.env.MONGOURL)
+    .then(() => console.log("Mongo connected!"));
 
-router.get("/", (req, res) => res.send("Company API"));
+const CompanyModel = require("../Models/Company");
 
+router.get("/", (req, res) => res.send("Company APIs"));
 
-router.post("/add", (req, res) => {
+//Add company
+router.post("/Add", async (req, res) => {
     const { company } = req.body;
-    companyList.push(company);
+    CompanyModel.create(company);
 
-    res.json({ data: "Company added!" });
+    return res.json({data : "Company added!"});
 });
 
+//Update company
+router.put("/change/:id", async (req, res) => {
+    const id = req.params.id;
+    const product = req.body.product;
 
-router.put("/change/:id", (req, res) => {
-    const companyID = req.params.id;
-    const { product } = req.body;
-    const company = companyList.filter((company) => company.CompanyID === companyID);
+    const updatedCompany = await CompanyModel.findOneAndUpdate(
+        {CompanyID : id}
+        ,{ProductIDs : product}
+        ,{new : true}
+    )
+    console.log(JSON.stringify(updatedCompany));
+    return res.json({data : "Company's product changed!"});
+});
 
-    if (company.length > 0) {
-        companyList[companyList.indexOf(company[0])].ProductIDs = product;
-        res.json({ data: "Company's product changed!" });
-    } else {
-        res.json({ data: "Company not found :(!" });
+//Delete company
+router.delete("/Delete/:id", async (req, res) => {
+    const id = req.params.id;
+    const deletedCompany = await CompanyModel.findOneAndDelete({CompanyID: id});
+
+    console.log(JSON.stringify(deletedCompany));
+    return res.json({data : "Company deleted!"});
+});
+
+//Company list based on product name
+router.get("/Product/:ProductName", async (req, res) => {
+    const ProductName = req.params.ProductName;
+    const ProductModel = require("../Models/Product");
+    const product = await ProductModel.findOne({Title : ProductName});
+    
+    if(product == null || product.length < 0){
+        return res.json({data : "No product found :(!"});
+    }else{
+        const companyList = await CompanyModel.find({ProductIDs : product["ProductID"]});
+        if(companyList.length === 0){
+            return res.json({data : "No company found :(!"});
+        }
+        return res.json({data : companyList});
+    } 
+
+});
+
+//List all company
+router.get("/List", async (req, res) => {
+    const CompanyList = await CompanyModel.find();
+
+    if(CompanyList.length === 0){
+        return res.json({data : "No company found :(!"});
     }
+
+    return res.json({data : CompanyList});
 });
-
-router.delete("/delete/:id", (req, res) => {
-    const companyID = req.params.id;
-    const company = companyList.filter((company) => company.CompanyID === companyID);
-
-    if (company.length > 0) {
-        var companyIndex = companyList.indexOf(company[0]);
-        companyList.splice(companyIndex, 1);
-        res.json({ data: "Company deleted!" });
-    } else {
-        res.json({ data: "Company not found:(!" });
-    }
-});
-
-
-router.get("/list", (req, res) => {
-    res.json({ data: companyList });
-});
-
-
-router.get("/:productName", (req, res) => {
-    const productName = req.params.productName;
-    const productList = require("../models/product")
-    var companies = [];
-    const product = productList.filter((prd) => (prd.Title === productName));
-
-    if (product.length > 0) {
-        companies = companyList.filter((cmp) => (cmp.CompanyID === product[0].CompanyID));
-    } else {
-        companies = "No product found :(!"
-    }
-    res.json({ data: companies });
-});
-
 
 module.exports = router;
