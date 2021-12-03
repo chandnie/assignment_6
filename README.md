@@ -1,2 +1,1 @@
-# qwertyvate_api
-# ttt
+# assignment_6
