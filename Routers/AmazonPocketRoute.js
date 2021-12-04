@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const WalletController = require("../Controllers/WalletController");
+const WalletController = require("../Controllers/AmazonPocketController");
 
 //Default API :Wallet/
 router.get("/", WalletController.DefaultAPI);
@@ -17,6 +17,6 @@ router.post("/AddIn", WalletController.AddInWallet);
 //Change amount :Wallet/Change/
 router.put("/Change", WalletController.UpdateWallet);
 //Delete :Delete/1
-router.delete("/Delete/:WalletID", WalletController.DeleteWallet);
+router.delete("/Delete/:BookId", WalletController.DeleteWallet);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const WalletModel = require("../Models/WalletModel");
+const WalletModel = require("../Models/AmazonPocketModel");
 
 //Default API : /
 exports.DefaultAPI = (req, res) => {
@@ -86,7 +86,7 @@ exports.UpdateWallet = async (req, res) => {
     try{
         const { wallet } = req.body;
         const updatedWallet = await WalletModel.findOneAndUpdate(
-            {WalletID : wallet.WalletID},
+            {BookId : wallet.BookId},
             {$set : {
                 Amount : wallet.Amount,
                 TransactionType : wallet.TransactionType,
@@ -96,7 +96,7 @@ exports.UpdateWallet = async (req, res) => {
         );
 
         if(updatedWallet.length === 0)
-            return res.json({data : `Failed ${wallet.WalletID}`});
+            return res.json({data : `Failed ${wallet.BookId}`});
         
         return res.json({data : `Updated transaction - ${updatedWallet}`});
     } catch(err) {
@@ -107,8 +107,8 @@ exports.UpdateWallet = async (req, res) => {
 //Delete :Delete/1
 exports.DeleteWallet = async (req, res) => {
     try{
-        const walletID = req.params.WalletID;
-        const deletedWallet = await WalletModel.findOneAndDelete({WalletID : walletID});
+        const BookId = req.params.BookId;
+        const deletedWallet = await WalletModel.findOneAndDelete({BookId : BookId});
        
         res.json({data : `Deleted transaction - ${deletedWallet}`});
     } catch(err) {
