@@ -2,21 +2,27 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 
-const WalletController = require("../Controllers/AmazonPocketController");
+const BookController = require("../Controllers/AmazonPocketController");
 
-//Default API :Wallet/
+//Default API :Book/
 router.get("/", WalletController.DefaultAPI);
-//List all transaction :Wallet/List/
-router.get("/List", WalletController.ListAllTransaction);
-//List all deposit transaction :Wallet/Type/Deposit
-router.get("/Type/:TransactionType", WalletController.ListAllTransactionByType);
-//Total amount :Wallet/Total
-router.get("/Total", WalletController.GetTotalAmount);
-//Add amount :Wallet/AddIn/
-router.post("/AddIn", WalletController.AddInWallet);
-//Change amount :Wallet/Change/
-router.put("/Change", WalletController.UpdateWallet);
+
+//List all transaction :Book/List/
+router.get("/List", BookController.ListAllTransaction);
+
+//List all deposit transaction :Book/Type/Deposit
+router.get("/Type/:TransactionType", BookController.ListAllTransactionByType);
+
+//Total amount :Book/Total
+router.get("/Total", BookController.GetTotalAmount);
+
+//Add amount :Book/AddIn/
+router.post("/AddIn", BookController.AddInWallet);
+
+//Change amount :Book/Change/
+router.put("/Change", BookController.UpdateWallet);
+
 //Delete :Delete/1
-router.delete("/Delete/:BookId", WalletController.DeleteWallet);
+router.delete("/Delete/:BookId", BookController.DeleteWallet);
 
 module.exports = router;
