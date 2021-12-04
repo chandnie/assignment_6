@@ -4,6 +4,7 @@
   "description": "Wallet management APIs using MongoDB, where user can register and manage deposite and withdrawal transactions!",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
