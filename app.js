@@ -14,29 +14,9 @@ app.use("/Wallet", WalletRoutes);
 
 
 // const url = "mongodb+srv://chandni:chandni123@@@cluster0.fwd1g.mongodb.net/testing?retryWrites=true&w=majority"
-const url = "mongodb+srv://chandni:chandni123@@@cluster0.fwd1g.mongodb.net/test"
 mongoose
-    .connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log("Successfully connect to MongoDB.");
-        initial();
-    })
-    .catch(err => {
-        console.error("Connection error", err);
-        process.exit();
-    });
-
-// const { MongoClient } = require('mongodb');
-// const uri = "mongodb+srv://chandni:chandni123@@@cluster0.fwd1g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
+    .connect(process.env.MONGOURL)
+    .then(() => console.log("Mongo connected!"));
 
 
 
